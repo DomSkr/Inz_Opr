@@ -1,0 +1,63 @@
+# Wypożyczalnia filmów DVD
+
+### Cel
+Celem systemu jest obsługa wypożyczalni filmów DVD.
+
+### Słownik użytych skrótów
+Skrót/pojęcie | Opis
+----|----
+UC| Use Case - przypadek użycia
+W | Wymaganie
+
+### Lista aktorów
+
+Nazwa | Opis | Rodzaj
+---------|-------|-----
+Administrator |Może tworzyć, modyfikować i usuwać konta pracowników.| Osoba
+Pracownik|Może dodawać i usuwać filmy, zakładać i modyfikować konta klientów, dokonywać rezerwacji, wypożyczeń, zwrotów i prolongat filmu, przyjmować płatności, wystawiać faktury.|Osoba
+Kierownik (Extends Pracownik) |Może zmieniać ceny i warunki wypożyczenia filmu, zarządzać dostępnością.|Osoba
+Klient|Może założyć, zmieniać i zamknąć konto w wypożyczalni. Może dokonywać rezerwacji, wypożyczeń, zwrotów, prolongat filmów DVD, wykonywać opłaty.|Osoba
+
+### Lista wymagań
+
+Zarządzanie systemem
+ID | Nazwa | Opis | UC
+---|---|---|---
+W_1.01|Stworzenie konta pracownika|Utworzenie nowego konta pracownika.|UC_1.01
+W_1.02|Modyfikacja konta pracownika|Dodanie lub usunięcie uprawnień.|UC_1.02
+W_1.03|Modyfikacja danych pracownika|Zmiana, dodanie lub usunięcie danych pracownika (np. nazwisko, nr telefonu).|UC_1.03
+W_1.04|Zmiana statusu konta pracownika|Zmiana statusu konta pracownika Aktywny/Nieaktywny.|UC_1.04
+
+Rezerwacje
+ID | Nazwa | Opis | UC
+---|---|---|---
+W_2.01|Rezerwacja filmu|Klient ma możliwość zarezerwowania filmu osobiście, telefonicznie lub przez internet|UC_2.01
+W_2.02|Zmiana rezerwacji|Klient ma możliwość zmiany rezerwacji filmu osobiście, telefonicznie lub przez internet |UC_2.02
+W_2.03|Usunięcie rezerwacji|Klient ma możliwość usunięcia rezerwacji filmu osobiście, telefonicznie lub przez internet |UC_2.03
+
+Wypożyczenia
+ID | Nazwa | Opis | UC
+---|---|---|---
+W_3.01|Wypożyczenie filmu||UC_3.01
+W_3.02|Zwrot filmu||UC_3.02
+W_3.03|Prolongata wypożyczenia||UC_3.03
+
+Konto użytkownika
+ID | Nazwa | Opis | UC
+---|---|---|---
+W_|Założenie konta|Klient ma możliwość założenia konta w serwisie wypożyczalni osobiście lub online|UC_
+W_|Zawieszenie konta|Klient ma możliwość zawieszenia konta w serwisie wypożyczalni osobiście lub online|UC_
+W_|Zamknięcie konta|Klient ma możliwość zamknięcia konta w serwisie wypożyczalni osobiście lub online|UC_
+
+
+ID | Nazwa | Opis | UC
+---|---|---|---
+W_|||UC_
+
+### Diagram przypadków użycia
+### Lista przypadków użycia
+### Przypadki użycia - dokładne działanie
+### Diagram aktywności
+### Diagram klas
+### Opis klas
+### Diagram sekwencji (opcjonalnie)
