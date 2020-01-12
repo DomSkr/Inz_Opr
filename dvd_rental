@@ -1,3 +1,4 @@
+
 # Wypożyczalnia filmów DVD
 
 ### Cel
@@ -14,7 +15,7 @@ W | Wymaganie
 Nazwa | Opis | Rodzaj
 ---------|-------|-----
 Administrator |Może tworzyć, modyfikować i usuwać konta pracowników.| Osoba
-Pracownik|Może dodawać i usuwać filmy, zakładać i modyfikować konta klientów, dokonywać rezerwacji, wypożyczeń, zwrotów i prolongat filmu, przyjmować płatności, wystawiać faktury.|Osoba
+Pracownik|Może dodawać i usuwać filmy, zakładać, zamykać i modyfikować konta klientów, dokonywać rezerwacji, wypożyczeń, zwrotów i prolongat filmu, przyjmować płatności, wystawiać faktury.|Osoba
 Kierownik (Extends Pracownik) |Może zmieniać ceny i warunki wypożyczenia filmu, zarządzać dostępnością.|Osoba
 Klient|Może założyć, zmieniać i zamknąć konto w wypożyczalni. Może dokonywać rezerwacji, wypożyczeń, zwrotów, prolongat filmów DVD, wykonywać opłaty.|Osoba
 
@@ -31,33 +32,63 @@ W_1.04|Zmiana statusu konta pracownika|Zmiana statusu konta pracownika Aktywny/N
 Rezerwacje
 ID | Nazwa | Opis | UC
 ---|---|---|---
-W_2.01|Rezerwacja filmu|Klient ma możliwość zarezerwowania filmu osobiście, telefonicznie lub przez internet|UC_2.01
-W_2.02|Zmiana rezerwacji|Klient ma możliwość zmiany rezerwacji filmu osobiście, telefonicznie lub przez internet |UC_2.02
-W_2.03|Usunięcie rezerwacji|Klient ma możliwość usunięcia rezerwacji filmu osobiście, telefonicznie lub przez internet |UC_2.03
+W_2.01|Rezerwacja filmu|Klient ma możliwość zarezerwowania filmu osobiście lub telefonicznie. Rezerwacje wprowadza pracownik wypożyczalni.|UC_2.01 UC_2.01_K UC_2.01_P
+W_2.02|Zmiana rezerwacji|Klient ma możliwość zmiany rezerwacji filmu osobiście lub telefonicznie. Zmiany wprowadza pracownik wypożyczalni.|UC_2.02 UC_2.02_K UC_2.02_P
+W_2.03|Usunięcie rezerwacji|Klient ma możliwość usunięcia rezerwacji filmu osobiście lub telefonicznie. Usunięcie wprowadza pracownik wypożyczalni.|UC_2.03 UC_2.03_K UC_2.03_P
 
 Wypożyczenia
 ID | Nazwa | Opis | UC
 ---|---|---|---
-W_3.01|Wypożyczenie filmu||UC_3.01
-W_3.02|Zwrot filmu||UC_3.02
-W_3.03|Prolongata wypożyczenia||UC_3.03
+W_3.01|Wypożyczenie filmu|Klient może wypożyczyc film. Wypożyczenia dokonuje pracownik wypożyczalni.|UC_3.01 UC_3.01_K UC_3.01_P
+W_3.02|Zwrot filmu|Klient może dokonać zwrotu filmu. Zwroty przyjmuje pracownik wypożyczalni.|UC_3.02 UC_3.02_K UC_3.02_P
+W_3.03|Prolongata|Klient może dokonać prolongaty osobiście lub telefonicznie. Prolongatę wprowadza pracownik wypożyczalni.|UC_3.03 UC_3.03_K UC_3.03_P
 
 Konto użytkownika
 ID | Nazwa | Opis | UC
 ---|---|---|---
-W_|Założenie konta|Klient ma możliwość założenia konta w serwisie wypożyczalni osobiście lub online|UC_
-W_|Zawieszenie konta|Klient ma możliwość zawieszenia konta w serwisie wypożyczalni osobiście lub online|UC_
-W_|Zamknięcie konta|Klient ma możliwość zamknięcia konta w serwisie wypożyczalni osobiście lub online|UC_
+W_4.01|Założenie konta|Klient ma możliwość założenia konta w serwisie wypożyczalni. Konto zakłąda pracownik wypożyczalni.|UC_04.01 UC_4.01_K UC_4.01_P
+W_4.02|Zawieszenie konta|Klient ma możliwość zawieszenia konta w serwisie wypożyczalni. Zawieszenia dokonuje pracownik wypożyczalni.|UC_04.02 UC_4.02_K UC_4.02_P
+W_4.03|Zamknięcie konta|Klient ma możliwość zamknięcia konta w serwisie wypożyczalni. Zamknięcia dokonuje pracownik wypożyczalni.|UC_4.03 UC_4.03_K UC_4.03_P
 
-
+Płatności
 ID | Nazwa | Opis | UC
 ---|---|---|---
-W_|||UC_
+W_5.01|Dokonanie płatności|Klient może dokonać płatności przy zamówieniu lub przy odbiorze filmu kartą, BLIK-iem lub gotówką. Płatności przyjmuje pracownik wypożyczalni.|UC_5.01 UC_5.01_K UC_5.01_P
+W_5.02|Wystawienie faktury|Wystawienia faktury dokonuje pracownik wypozyczalni.|UC_5.01 UC_4.01_P
+
+Baza filmów
+ID | Nazwa | Opis | UC
+---|---|---|---
+W_6.01|Dodanie / usunięcie filmu do bazy|Dodania i usunięcia filmów z bazy dokonuje pracownik wypożyczalni|UC_6.01 UC_6.02
+W_6.03|Zmiana ceny filmu|Zmiany cen i warunków wypożyczenia dokonuje Kierownik wypożyczalni|UC_6.03 UC_6.03_KR
+
 
 ### Diagram przypadków użycia
+
+```mermaid
+graph LR
+A[Pracownik] --> B(Założenie konta)
+B-->D[Klient]
+A-->C(Zawieszenie konta)
+C-->D
+A-->E(Zamknięcie konta)
+E-->D
+A-->F(Rezerwacja filmu)
+F-->D
+A-->G(Wystawienie faktury)
+A-->H(Wprowadzenie filmu)
+A-->I(Usunięcie filmu)
+```
+
 ### Lista przypadków użycia
-### Przypadki użycia - dokładne działanie
+
+Nr | Nazwa | Opis | Aktorzy uprawnieni
+---|---|---|---
+1|Założenie konta|Klient zakłąda konto podając swoje dane osobowe, pracownik wprowadza dane do systemu.|Klient Pracownik
+2|Zawieszenie konta|Klient zgłasza chęć zawieszenia konta. Pracownik zaznacza odpowiednią opcję w systemie.|Klient Pracownik
+3|Usunięcie konta|Klient zgłasza chęć zamknięcia konta. Pracownik zaznacza odpowiednią opcję w systemie.|Klient Pracownik
+4|Rezerwacja filmu|Klient zgłasza chęć rezerwacji filmu, osobiście lub telefonicznie. Pracownik dokonuje rezerwacji w systemie|Klient Pracownik
+5|Zmiana rezerwacji|Klient zgłasza chęć zmiany rezerwacji. Pracownik wprowadza zmianę do systemu|Klient Pracownik
+
+
 ### Diagram aktywności
-### Diagram klas
-### Opis klas
-### Diagram sekwencji (opcjonalnie)
