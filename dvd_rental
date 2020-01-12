@@ -67,17 +67,40 @@ W_6.03|Zmiana ceny filmu|Zmiany cen i warunków wypożyczenia dokonuje Kierownik
 
 ```mermaid
 graph LR
-A[Pracownik] --> B(Założenie konta)
-B-->D[Klient]
-A-->C(Zawieszenie konta)
-C-->D
-A-->E(Zamknięcie konta)
-E-->D
-A-->F(Rezerwacja filmu)
-F-->D
-A-->G(Wystawienie faktury)
-A-->H(Wprowadzenie filmu)
-A-->I(Usunięcie filmu)
+Ad[Administrator] --> W1(Stworzenie konta pracownika)
+Ad-->W2(Modyfikacja uprawnień)
+Ad-->W3(Modyfikacja danych)
+Ad-->(Zmiana statusu konta)
+```
+
+```mermaid
+graph LR
+Pr[Pracownik] --> W1(Założenie konta)
+W1-->Kl[Klient]
+Pr-->W2(Zawieszenie konta)
+W2-->Kl
+Pr-->W3(Zamknięcie konta)
+W3-->Kl
+Pr-->W4(Rezerwacja filmu)
+W4-->Kl
+Pr-->W5(Zmiana rezerwacji)
+W5-->Kl
+Pr-->W6(Usunięcie rezerwacji)
+W6-->Kl
+Pr-->W7(Wypożyczenie filmu)
+W7-->Kl
+Pr-->W8(Prolongata filmu)
+W8-->Kl
+Pr-->W9(Zwrot filmu)
+W9-->Kl
+Pr-->G(Wystawienie faktury)
+Pr-->H(Wprowadzenie filmu do bazy)
+Pr-->I(Usunięcie filmu z bazy)
+```
+```mermaid
+graph LR
+Kie[Kierownik] --> W10(Zmiana ceny filmu)
+Kie-->W11(Zmiana warunków wypożyczenia)
 ```
 
 ### Lista przypadków użycia
