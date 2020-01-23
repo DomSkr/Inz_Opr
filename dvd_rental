@@ -1,5 +1,18 @@
+  
+    
+      
+        
+         
 
 # Wypożyczalnia filmów DVD
+  
+    
+      
+        
+           
+             
+               
+               
 
 ### Cel
 Celem systemu jest obsługa wypożyczalni filmów DVD.
@@ -16,8 +29,8 @@ Nazwa | Opis | Rodzaj
 ---------|-------|-----
 Administrator |Może tworzyć, modyfikować i usuwać konta pracowników.| Osoba
 Pracownik|Może dodawać i usuwać filmy, zakładać, zamykać i modyfikować konta klientów, dokonywać rezerwacji, wypożyczeń, zwrotów i prolongat filmu, przyjmować płatności, wystawiać faktury.|Osoba
-Kierownik (Extends Pracownik) |Może zmieniać ceny i warunki wypożyczenia filmu, zarządzać dostępnością.|Osoba
-Klient|Może założyć, zmieniać i zamknąć konto w wypożyczalni. Może dokonywać rezerwacji, wypożyczeń, zwrotów, prolongat filmów DVD, wykonywać opłaty.|Osoba
+Kierownik (Extends Pracownik) |Może zmieniać ceny i warunki wypożyczenia filmu.|Osoba
+Klient|Może założyć, zmieniać i zamknąć konto w wypożyczalni. Może dokonywać rezerwacji, wypożyczeń, zwrotów, prolongat filmów DVD, dokonywać opłat.|Osoba
 
 ### Lista wymagań
 
@@ -33,8 +46,7 @@ Rezerwacje
 ID | Nazwa | Opis | UC
 ---|---|---|---
 W_2.01|Rezerwacja filmu|Klient ma możliwość zarezerwowania filmu osobiście lub telefonicznie. Rezerwacje wprowadza pracownik wypożyczalni.|UC_2.01 UC_2.01_K UC_2.01_P
-W_2.02|Zmiana rezerwacji|Klient ma możliwość zmiany rezerwacji filmu osobiście lub telefonicznie. Zmiany wprowadza pracownik wypożyczalni.|UC_2.02 UC_2.02_K UC_2.02_P
-W_2.03|Usunięcie rezerwacji|Klient ma możliwość usunięcia rezerwacji filmu osobiście lub telefonicznie. Usunięcie wprowadza pracownik wypożyczalni.|UC_2.03 UC_2.03_K UC_2.03_P
+W_2.02|Usunięcie rezerwacji|Klient ma możliwość usunięcia rezerwacji filmu osobiście lub telefonicznie. Usunięcie wprowadza pracownik wypożyczalni.|UC_2.02 UC_2.02_K UC_2.02_P
 
 Wypożyczenia
 ID | Nazwa | Opis | UC
@@ -64,54 +76,21 @@ W_6.03|Zmiana ceny filmu|Zmiany cen i warunków wypożyczenia dokonuje Kierownik
 
 
 ### Diagram przypadków użycia
-
-```mermaid
-graph LR
-Ad[Administrator] --> W1(Stworzenie konta pracownika)
-Ad-->W2(Modyfikacja uprawnień)
-Ad-->W3(Modyfikacja danych)
-Ad-->(Zmiana statusu konta)
-```
-
-```mermaid
-graph LR
-Pr[Pracownik] --> W1(Założenie konta)
-W1-->Kl[Klient]
-Pr-->W2(Zawieszenie konta)
-W2-->Kl
-Pr-->W3(Zamknięcie konta)
-W3-->Kl
-Pr-->W4(Rezerwacja filmu)
-W4-->Kl
-Pr-->W5(Zmiana rezerwacji)
-W5-->Kl
-Pr-->W6(Usunięcie rezerwacji)
-W6-->Kl
-Pr-->W7(Wypożyczenie filmu)
-W7-->Kl
-Pr-->W8(Prolongata filmu)
-W8-->Kl
-Pr-->W9(Zwrot filmu)
-W9-->Kl
-Pr-->G(Wystawienie faktury)
-Pr-->H(Wprowadzenie filmu do bazy)
-Pr-->I(Usunięcie filmu z bazy)
-```
-```mermaid
-graph LR
-Kie[Kierownik] --> W10(Zmiana ceny filmu)
-Kie-->W11(Zmiana warunków wypożyczenia)
-```
+  ![enter image description here](https://oneimage.zhaba.repl.co/DiagramPracownik-Klient-Admin.jpg(1).jpg)
 
 ### Lista przypadków użycia
 
 Nr | Nazwa | Opis | Aktorzy uprawnieni
 ---|---|---|---
-1|Założenie konta|Klient zakłąda konto podając swoje dane osobowe, pracownik wprowadza dane do systemu.|Klient Pracownik
-2|Zawieszenie konta|Klient zgłasza chęć zawieszenia konta. Pracownik zaznacza odpowiednią opcję w systemie.|Klient Pracownik
-3|Usunięcie konta|Klient zgłasza chęć zamknięcia konta. Pracownik zaznacza odpowiednią opcję w systemie.|Klient Pracownik
-4|Rezerwacja filmu|Klient zgłasza chęć rezerwacji filmu, osobiście lub telefonicznie. Pracownik dokonuje rezerwacji w systemie|Klient Pracownik
-5|Zmiana rezerwacji|Klient zgłasza chęć zmiany rezerwacji. Pracownik wprowadza zmianę do systemu|Klient Pracownik
-
-
-### Diagram aktywności
+1|Założenie konta|Klient zakłąda konto podając swoje dane osobowe, pracownik wybiera w systemie opcję "Nowy klient". Otwiera się nowe okno pozwalające na wprowadzenie danych. Po zatwierdzeniu następuje zapis do bazy danych - tabela klienci|Klient Pracownik
+2|Zawieszenie konta|Klient zgłasza chęć zawieszenia konta. Pracownik zaznacza w na koncie klienta opcję "zawieszony". Następuje aktualizacja bazy danych - tabela klienci.|Klient Pracownik
+3|Usunięcie konta|Klient zgłasza chęć zamknięcia konta. Pracownik sprawdza stan wypożyczeń (zapytanie do bazy danych - tabela wypożyczenia) oraz stan rezerwacji (tabela rezerwacje), a następnie zaznacza na koncie klienta opcję "nieaktywny". Następuje aktualizacja bazy danych - tabelia klienci|Klient Pracownik
+4|Rezerwacja filmu|Klient zgłasza chęć rezerwacji filmu. Pracownik sprawdza w bazie danych czy dany film jest dostępny, w jakim terminie i za jaką opłatą (zapytanie do bazy danych - tabela filmy). Następnie naciska przycisk "dodaj rezerwację", po czym pojawia się pole z miejscem na wpisanie numeru klienta. Po zatwierdzeniu operacji następuje aktualizacja statusu filmu w bazie danych - tabela filmy oraz zapis do tabeli wypożyczenia.|Klient Pracownik
+5|Usunięcie rezerwacji|Klient zgłasza chęć usunięcia rezerwacji. Pracownik sprawdza rezerwację na koncie klienta (zapytanie do bazy danych - tabela rezerwacje) a następnie klika przycisk "usuń rezerwację". Następuje aktualizacja tabeli rezerwacje w bazie danych.|Klient Pracownik
+7|Wypożyczenie filmu|Klient ma możliwość wypożyczenia filmu. Pracownik wyszukuje konto klienta, klika przycisk wypożycz, skanuje kod filmu, następnie zatwierdza operację używając przycisku "zatwierdź wypożyczenie". Następuje zapis do bazy danych - tabela wypożyczenia.|Klient Pracownik
+8|Prolongata filmu|Klient ma możliwość przedłużenia wypożyczenia filmu. Pracownik klika "przedłuż wypożyczenie", po czym system sprawdza czy film nie ma rezerwacji (zapytanie do bazy danych - tabela rezerwacje). Jeżeli zapytanie zwróci pusty wynik następuje aktualizacja bazy danych tabela wypożyczenia.|Klient Pracownik
+9|Zwrot filmu|Klient ma możliwość zwrotu filmu. Pracownik otwiera konto klienta, klika przycisk "zwróć", a następnie skanuje kod filmu. Następuje aktualizacja statusu filmu (tabela filmy, tabela wypożyczenia)|Klient Pracownik
+10|Uregulowanie opłaty|W systemie następuje zmiana statusu płatności na uregulowaną. Możliwa do wykonania przez Pracownika.|Klient Pracownik
+11|Dodanie filmu|Pracownik ma możliwość dodania filmu do bazy. Pojawia się okno z polami do wprowadzenia danych filmu.|Praacownik
+12|Usunięcie filmu|Pracownik ma możliwość usunięcia filmu z bazy. W tym celu po wyszukaniu filmu używa przycisku usuń|Pracownik
+13|Zmiana ceny i warunków wypożyczenia|Kierownik ma możliwość zmiany ceny filmu i warunków wypożyczenia np. czasu. W systemie pojawiają się odpowiednie okna do wprowadzenia zmian.|Kierownik
